@@ -82,8 +82,7 @@ config = {
         "encoding": "utf-8"
     },
     "cleaner": {
-        "strategy": "fill",
-        "method": "mean",
+        "type": "mean",
         "columns": ["age", "salary"]
     },
     "encoder": {
