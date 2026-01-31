@@ -30,11 +30,25 @@ The engine is composed of independent modules, each with a **single responsibili
 
 ```text
 engine/
-├── loaders.py     # Load CSV files (encoding, separator, path)
-├── cleaners.py    # Handle missing or invalid data
-├── encoders.py    # Encode categorical features
-├── scalers.py     # Scale numerical features
-├── pipeline.py    # Orchestrates the preprocessing flow
+├── Cleaner/
+│   ├── cleaner.py              # Base cleaner interface
+│   ├── cleaner_static.py       # Stateless cleaning utilities
+│   └── cleanerFactory.py       # Cleaner factory
+│
+├── Encoder/
+│   ├── encoder.py              # Base encoder interface
+│   └── encoderFactory.py       # Encoder factory
+│
+├── Loader/
+│   ├── csv_loader.py           # CSV loader implementation
+│   └── loaderFactory.py        # Loader factory
+│
+├── Scaler/
+│   ├── scaler.py               # Base scaler interface
+│   └── scalerFactory.py        # Scaler factory
+│
+├── pipeline.py                 # Pipeline orchestration
+├── test.py                     # Local tests / experiments
 ```
 Each component respects the following principles:
 
@@ -45,6 +59,7 @@ No dataset-specific logic
 Behavior is defined only by configuration
 
 🔄 Processing Flow
+```text
 CSV
  ↓
 Loader      → reads raw data
@@ -56,9 +71,10 @@ Encoder     → encodes categorical columns
 Scaler      → scales numerical features
  ↓
 Processed CSV (ML-ready)
-
+```
 
 ⚙️ Configuration Example
+```text
 config = {
     "loader": {
         "path": "data/raw.csv",
@@ -79,10 +95,12 @@ config = {
         "columns": ["age", "salary"]
     }
 }
-
+```
 
 🧪 Example Usage
+```text
 from pipeline import Pipeline
 
 pipeline = Pipeline(config)
 df_processed = pipeline.run()
+```
