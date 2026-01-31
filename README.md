@@ -35,7 +35,7 @@ engine/
 ├── encoders.py    # Encode categorical features
 ├── scalers.py     # Scale numerical features
 ├── pipeline.py    # Orchestrates the preprocessing flow
-
+```
 Each component respects the following principles:
 
 No hidden decisions
